@@ -7,13 +7,21 @@ import 'package:push_notifications/firebase_options.dart';
 part 'notifications_event.dart';
 part 'notifications_state.dart';
 
+//! A TOP LEVEL FUNCTION FOR BACKGROUND NOTIFICATIONS
+Future<void> firebaseMessagingBackgroundHandler(RemoteMessage msge) async {
+  await Firebase.initializeApp();
+  print('handling notification $msge');
+}
+
 class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
   FirebaseMessaging messaging = FirebaseMessaging.instance;
 
   NotificationsBloc() : super(const NotificationsState()) {
     on<NotificationChange>(_notificationStatusChanged);
-
+    // Verificar el estado de las notificaciones
     _initialStatusCheck();
+    // Listener para las notificaciones en foreground
+    _onForegroundMessage();
   }
 
   static Future<void> initializeFirebaseNotifications() async {
@@ -52,5 +60,17 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
       NotificationChange event, Emitter<NotificationsState> emit) {
     emit(state.copyWith(status: event.status));
     _getFirebaseConfigurationMessagingToken();
+  }
+
+  void _handleRemoteMessage(RemoteMessage message) {
+    print('message is: ${message.data}');
+
+    if (message.notification == null) return;
+
+    print('message also contained a notification ${message.notification}');
+  }
+
+  void _onForegroundMessage() {
+    FirebaseMessaging.onMessage.listen(_handleRemoteMessage);
   }
 }
