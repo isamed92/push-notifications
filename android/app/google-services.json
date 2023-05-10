@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1009981152699",
+    "project_id": "flutter-projects-imedina",
+    "storage_bucket": "flutter-projects-imedina.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1009981152699:android:fdf6ef37f72253fcd1389e",
+        "android_client_info": {
+          "package_name": "com.imedina.push_notifications"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1009981152699-uanj6ud8s16q71pjcv7lgalbb6eicbse.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDPnEPtUzYXLuRAq0pq66w26VyiIWH1a-4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1009981152699-uanj6ud8s16q71pjcv7lgalbb6eicbse.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
