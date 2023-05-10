@@ -29,11 +29,18 @@ class _HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final notifications =
+        context.watch<NotificationsBloc>().state.notifications;
     return ListView.builder(
       itemBuilder: (context, index) {
-        return const ListTile(title: Text('algo'));
+        final notification = notifications[index];
+        return ListTile(
+            title: Text(notification.title),
+            subtitle: Text(notification.body),
+            leading: Image.network(notification.imageUrl ??
+                'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png'));
       },
-      itemCount: 0,
+      itemCount: notifications.length,
     );
   }
 }
