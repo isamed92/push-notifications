@@ -21,8 +21,18 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
   FirebaseMessaging messaging = FirebaseMessaging.instance;
 
   int pushNumberId = 0;
+  final Future<void> Function() requestLocalNotificationPermissions;
+  final void Function({
+    required int id,
+    String? title,
+    String? body,
+    String? data,
+  })? showLocalNotification;
 
-  NotificationsBloc() : super(const NotificationsState()) {
+  NotificationsBloc(
+      {this.showLocalNotification,
+      required this.requestLocalNotificationPermissions})
+      : super(const NotificationsState()) {
     on<NotificationChange>(_notificationStatusChanged);
 
     // Listener para agregar notificaciones
@@ -51,7 +61,9 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
       sound: true,
     );
     // solicitar permiso a las local notification
-    await LocalNotifications.requestPermissionLocalNotification();
+    // await LocalNotifications.requestPermissionLocalNotification();
+    requestLocalNotificationPermissions();
+
     add(NotificationChange(settings.authorizationStatus));
   }
 
@@ -91,11 +103,14 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
             : message.notification!.apple?.imageUrl);
 
     // print('message also contained a notification $notification');
-    LocalNotifications.showLocalNotification(
-        id: pushNumberId++,
-        body: notification.body,
-        data: notification.data.toString(),
-        title: notification.title);
+    // LocalNotifications.showLocalNotification(
+    if (showLocalNotification != null) {
+      showLocalNotification!(
+          id: pushNumberId++,
+          body: notification.body,
+          data: notification.data.toString(),
+          title: notification.title);
+    }
     add(NotificationReceived(notification));
   }
 

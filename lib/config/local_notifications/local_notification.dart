@@ -42,7 +42,6 @@ class LocalNotifications {
       android: androidDetails,
       //TODO iOS:
     );
-    print('hola');
     final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
     flutterLocalNotificationsPlugin.show(id, title, body, notificationDetails,
