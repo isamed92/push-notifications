@@ -1,6 +1,7 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:push_notifications/config/local_notifications/local_notification.dart';
 import 'package:push_notifications/config/router/app_router.dart';
 import 'package:push_notifications/config/theme/app_theme.dart';
 import 'package:push_notifications/presentation/blocs/notification_bloc/notifications_bloc.dart';
@@ -11,6 +12,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   //! for background notifications
   FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+  await LocalNotifications.initializeLocalNotifications();
 
   await NotificationsBloc.initializeFirebaseNotifications();
 
